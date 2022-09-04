@@ -1,0 +1,27 @@
+{
+  "namespace": "ch.ipt.kafka.techbier",
+  "type": "record",
+  "name": "Payment",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "accountId",
+      "type": "string"
+    },
+    {
+      "name": "cardNumber",
+      "type": "long"
+    },
+    {
+      "name": "cardType",
+      "type": "string"
+    },
+    {
+      "name": "amount",
+      "type": "double"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+# ------------------------------ #
+# Kafka Config
+KAFKA_KEY: "TODO"
+KAFKA_SECRET: "TODO"
+
+# Schema Registry Config
+SR_API_KEY: "TODO"
+SR_API_SECRET: "TODO"
+
+# Initials for app-id
+INITIALS: "TODO"
+# ------------------------------ #
+
+# Do not change settings below
+spring:
+  kafka:
+    bootstrap-servers: pkc-lzoyy.europe-west6.gcp.confluent.cloud:9092
+
+    streams:
+      application-id: viscon-2022-${INITIALS}
+      state-dir: ${user.dir}/target/state
+
+      properties:
+        default.value.serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+
+    properties:
+      security.protocol: SASL_SSL
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule   required username='${KAFKA_KEY}'   password='${KAFKA_SECRET}';
+      sasl.mechanism: PLAIN
+
+      client.dns.lookup: use_all_dns_ips
+      session.timeout.ms: 45000
+
+      # Required connection configs for Confluent Cloud Schema Registry
+      schema.registry.url: https://psrc-kk5gg.europe-west3.gcp.confluent.cloud
+      basic.auth.credentials.source: USER_INFO
+      basic.auth.user.info: ${SR_API_KEY}:${SR_API_SECRET}
+
+    producer:
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+
+    consumer:
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        specific.avro.reader: true
+
+source-topic-transactions: transactions
+source-topic-accounts: accounts
+
+
