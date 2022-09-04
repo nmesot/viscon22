@@ -14,7 +14,13 @@ Run the following command
 mvn clean install
 ```
 
-## 3 Set Config
+## 3 Refresh
+
+```
+Right click on viscon22 Folder in Project Explorer -> Maven -> Reload Project
+```
+
+## 4 Set Config
 In `src/main/resources/application.yml` fill in the following values.
 
 
@@ -29,13 +35,19 @@ In `src/main/resources/application.yml` fill in the following values.
 * Kafka & Schema Registry Config can be found here: https://docs.google.com/document/d/17sEf1aEZGBLhQKTDrNzBsdtiALWvmRrux2iv9WE_HB8/edit?usp=sharing
 
 
-## 4 Start App
+## 5 Start App
 
 Start class `ch.ipt.kafka.VisconKafkaApplication`
+```
+Right click VisconKafkaApplication -> Run 'VisconKafkaApplication.main()'
+```
 
 # Exercises
 
 Attention 007! You have come across this program, but some parts of it seem to be incomplete. If completed, we should be able to see who is making illegal payments to ```REDACTED```. Will you help us find out who it is? As always, this mission does not officially exist and should you accept it, you will be on your own. Best of luck!
+
+Confluent Java Docs: https://docs.confluent.io/kafka-clients/java/current/overview.html
+
 ## Exercise 1 - Consume from simple topic
 
 Let us start by consuming from a simple string-value topic. In the class KafkaConsumer, start by replacing your initials. Then, print out the key and the value of incoming records.

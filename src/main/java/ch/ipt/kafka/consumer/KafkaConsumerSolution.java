@@ -4,7 +4,6 @@ package ch.ipt.kafka.consumer;
 import ch.ipt.kafka.viscon.Account;
 import ch.ipt.kafka.viscon.Payment;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.common.TopicPartition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -41,21 +40,5 @@ public class KafkaConsumerSolution implements ConsumerSeekAware {
 		String key = consumerRecord.key();
 		Account value = consumerRecord.value();
 		LOGGER.info("received credit message: key={}, value={}", key, value);
-	}
-
-	@Override
-	public void registerSeekCallback(ConsumerSeekCallback callback) {
-
-	}
-
-	@Override
-	public void onPartitionsAssigned(Map<TopicPartition, Long> assignments, ConsumerSeekCallback callback) {
-		assignments.forEach((t, o) -> callback.seekToEnd(t.topic(), t.partition()));
-	}
-
-	@Override
-	public void onIdleContainer(Map<TopicPartition, Long> assignments, ConsumerSeekCallback callback) {
-
-
 	}
 }
