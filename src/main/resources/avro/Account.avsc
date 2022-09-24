@@ -22,6 +22,14 @@
     {
       "name": "city",
       "type": "string"
+    },
+    {
+      "name": "pan",
+      "type": "long"
+    },
+    {
+      "name": "cardType",
+      "type": "string"
     }
   ]
 }

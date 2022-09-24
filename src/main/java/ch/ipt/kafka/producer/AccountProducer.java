@@ -1,32 +1,54 @@
 package ch.ipt.kafka.producer;
 
 import ch.ipt.kafka.techbier.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
+import static ch.ipt.kafka.producer.AccountDataEnum.getRandomAccount;
 
-//This class is only needed to produce data. probably someone else is already producing data
-//@Configuration
+@Configuration
 public class AccountProducer {
 
-    @Value("${source-topic-accounts}")
-    private String sourceTopic;
-    KafkaProducer kafkaProducer;
+	private static final Logger LOGGER = LoggerFactory.getLogger(AccountProducer.class);
+	private final KafkaTemplate<String, Account> kafkaTemplateAccount;
+	@Value("${source-topic-account-avro}")
+	private String accountAvroTopic;
 
-    public AccountProducer(KafkaProducer kafkaProducer) {
-        this.kafkaProducer = kafkaProducer;
-    }
+	public AccountProducer(KafkaTemplate<String, Account> kafkaTemplateAccount) {
+		this.kafkaTemplateAccount = kafkaTemplateAccount;
+	}
 
-    @PostConstruct
-    public void sendAccounts() {
-        Arrays.asList(AccountDataEnum.values())
-                .forEach(
-                        accountEnum ->  {
-                            Account account = AccountDataEnum.getAccount(accountEnum);
-                            kafkaProducer.sendAccount(account, sourceTopic);
-                });
-    }
+	// TODO: Exercise 4
+
+	@Scheduled(fixedRate = 2000)
+	public void sendAccounts() {
+		Account account = getRandomAccount();
+		ListenableFuture<SendResult<String, Account>> future =
+				kafkaTemplateAccount.send(accountAvroTopic, account.getAccountId().toString(), account);
+
+		future.addCallback(new ListenableFutureCallback<>() {
+
+			@Override
+			public void onSuccess(SendResult<String, Account> result) {
+				LOGGER.info("Message [{}] delivered with offset {}",
+						account,
+						result.getRecordMetadata().offset());
+			}
+
+			@Override
+			public void onFailure(Throwable ex) {
+				LOGGER.warn("Unable to deliver message [{}]. {}",
+						account,
+						ex.getMessage());
+			}
+		});
+	}
 
 }

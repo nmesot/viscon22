@@ -33,7 +33,7 @@ spring:
       session.timeout.ms: 45000
 
       # Required connection configs for Confluent Cloud Schema Registry
-      schema.registry.url: https://psrc-kk5gg.europe-west3.gcp.confluent.cloud
+      schema.registry.url: https://psrc-mvkrw.europe-west3.gcp.confluent.cloud
       basic.auth.credentials.source: USER_INFO
       basic.auth.user.info: ${SR_API_KEY}:${SR_API_SECRET}
 
@@ -48,7 +48,6 @@ spring:
       properties:
         specific.avro.reader: true
 
-source-topic-transactions: transactions
-source-topic-accounts: accounts
+source-topic-account-avro: accounts-avro-${INITIALS}
 
 
