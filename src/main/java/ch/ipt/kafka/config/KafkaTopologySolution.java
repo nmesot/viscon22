@@ -6,10 +6,9 @@ import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.stereotype.Component;
 
 
-@Component
-public class KafkaDefaultTopology {
+//@Component // Uncomment this annotation if you want to test out the solution
+public class KafkaTopologySolution {
 
-	//TODO: Exercise 3
 	@Bean
 	public NewTopic account() {
 		return TopicBuilder.name("accounts-avro-NME").partitions(6).replicas(3).build();

@@ -1,6 +1,6 @@
 package ch.ipt.kafka.producer;
 
-import ch.ipt.kafka.techbier.Account;
+import ch.ipt.kafka.viscon.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,30 +25,9 @@ public class AccountProducer {
 		this.kafkaTemplateAccount = kafkaTemplateAccount;
 	}
 
-	// TODO: Exercise 4
-
 	@Scheduled(fixedRate = 2000)
 	public void sendAccounts() {
-		Account account = getRandomAccount();
-		ListenableFuture<SendResult<String, Account>> future =
-				kafkaTemplateAccount.send(accountAvroTopic, account.getAccountId().toString(), account);
-
-		future.addCallback(new ListenableFutureCallback<>() {
-
-			@Override
-			public void onSuccess(SendResult<String, Account> result) {
-				LOGGER.info("Message [{}] delivered with offset {}",
-						account,
-						result.getRecordMetadata().offset());
-			}
-
-			@Override
-			public void onFailure(Throwable ex) {
-				LOGGER.warn("Unable to deliver message [{}]. {}",
-						account,
-						ex.getMessage());
-			}
-		});
+		// TODO: Exercise 3.2
 	}
 
 }

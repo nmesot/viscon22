@@ -1,5 +1,5 @@
 {
-  "namespace": "ch.ipt.kafka.techbier",
+  "namespace": "ch.ipt.kafka.viscon",
   "type": "record",
   "name": "Account",
   "fields": [

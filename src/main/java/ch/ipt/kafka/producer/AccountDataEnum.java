@@ -1,6 +1,6 @@
 package ch.ipt.kafka.producer;
 
-import ch.ipt.kafka.techbier.Account;
+import ch.ipt.kafka.viscon.Account;
 
 import java.security.SecureRandom;
 
