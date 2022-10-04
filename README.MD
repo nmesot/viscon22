@@ -32,7 +32,7 @@ In `src/main/resources/application.yml` fill in the following values.
 * **Schema Registry Config:**
   * SR_API_KEY
   * SR_API_SECRET
-* Kafka & Schema Registry Config can be found here: https://docs.google.com/document/d/17sEf1aEZGBLhQKTDrNzBsdtiALWvmRrux2iv9WE_HB8/edit?usp=sharing
+* Kafka & Schema Registry Config can be found here: https://docs.google.com/document/d/1B6JommHGpwiOvLtHy9lqa-No1OyQs8re-DJOMsWIUj0/edit?usp=sharing
 
 
 ## 5 Start App
